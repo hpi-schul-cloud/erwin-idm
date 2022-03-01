@@ -1,10 +1,6 @@
 Installing Custom Providers
 ===========================
 
-Add your custom provider JAR files in this directory.
+Files in this directory are used to add custom provider JAR files to Keycloak.
 
-Once you have your providers in this directory, run the following command to complete the installation:
-
-```
-${kc.home.dir}/bin/kc.sh build
-```
+Adding new providers to this directory will take effect only after a new build.
