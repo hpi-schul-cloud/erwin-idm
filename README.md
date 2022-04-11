@@ -50,15 +50,24 @@ To build the container execute following command:
 docker build --target production -t schulcloud/erwin-idm .
 ```
 
-To create the container, e.g. to test it locally, you'll need a PostgresSQL database up and running. Adjust, and execute following command to start the Keycloak production container for local testing:
+To use the container, e.g. to test it locally, you'll need a PostgresSQL database up and running. To start a PostgresSQL container execute following commands:
 
 ```bash
-docker create --name erwin-idm -p 8080:8080 -p 8443:8443  \
+docker network create erwin-idm
+docker run --name postgres --network=erwin-idm -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
+```
+
+Adjust, and execute following command to start the Keycloak production container for local testing:
+
+```bash
+docker create --name erwin-idm --network=erwin-idm -p 8080:8080 -p 8443:8443  \
     -e KEYCLOAK_ADMIN=admin \
     -e KEYCLOAK_ADMIN_PASSWORD=admin \
-    -e KC_DB_URL=<DBURL> \
-    -e KC_DB_USERNAME=<DBUSERNAME> \
-    -e KC_DB_PASSWORD=<DBPASSWORD> \
+    -e KC_DB_URL=jdbc:postgresql://postgres:5432/postgres \
+    -e KC_DB_USERNAME=postgres \
+    -e KC_DB_PASSWORD=postgres \
+    -e KC_HTTP_ENABLED=true \
+    -e KC_PROXY=edge \
     -e KC_HOSTNAME=localhost:8080
     schulcloud/erwin-idm:latest
 ```
