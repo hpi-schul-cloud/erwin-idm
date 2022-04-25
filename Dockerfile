@@ -34,12 +34,12 @@ ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]
 ## Build
 FROM base AS production-build
 
-# Keycloak settings for developers mode
+# Keycloak settings for production mode
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=postgres
 ENV KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn
 ENV KC_CACHE=ispn
-ENV KC_CACHE_STACK=kubernetes
+ENV KC_CACHE_STACK=udp
 
 RUN /opt/keycloak/bin/kc.sh build
 
