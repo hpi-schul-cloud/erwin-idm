@@ -40,7 +40,9 @@ The developer build is configured to start Keycloak in developer mode. It is con
 
 ## Manual build for production image
 
-Following steps are intent to build the container for production purpose. Note that this is for testing the production image locally only. The production image is build automatically. You may use a pre-build image from [`GitHub Packages`](https://github.com/orgs/hpi-schul-cloud/packages?repo_name=erwin-idm). For your development environment you want to make use of the [`development image`](#manual-build-for-local-development-image).
+Note, the production image can not be used locally without setting up an TLS termination proxy. Following steps are intent to build the container for production purpose to test it locally. For your development environment you want to make use of the [`development image`](#manual-build-for-local-development-image).
+
+The production image is build automatically. You may use a pre-build image from [`GitHub Packages`](https://github.com/orgs/hpi-schul-cloud/packages?repo_name=erwin-idm).
 
 ### Build steps (production)
 
@@ -60,7 +62,7 @@ docker run --name postgres --network=erwin-idm -p 5432:5432 -e POSTGRES_PASSWORD
 Adjust, and execute following command to start the Keycloak production container for local testing:
 
 ```bash
-docker create --name erwin-idm --network=erwin-idm -p 8080:8080 -p 8443:8443  \
+docker create --name erwin-idm --network=erwin-idm -p 8080:8080 \
     -e KEYCLOAK_ADMIN=admin \
     -e KEYCLOAK_ADMIN_PASSWORD=admin \
     -e KC_DB_URL=jdbc:postgresql://postgres:5432/postgres \
@@ -68,7 +70,7 @@ docker create --name erwin-idm --network=erwin-idm -p 8080:8080 -p 8443:8443  \
     -e KC_DB_PASSWORD=postgres \
     -e KC_HTTP_ENABLED=true \
     -e KC_PROXY=edge \
-    -e KC_HOSTNAME=localhost:8080
+    -e KC_HOSTNAME=localhost:8080 \
     schulcloud/erwin-idm:latest
 ```
 
@@ -82,7 +84,7 @@ docker start erwin-idm
 docker stop erwin-idm
 ```
 
-The Keycloak Admin Console will be available at [`http://localhost:8080`](http://localhost:8080). You may login into the instance with username `admin` and password `admin`.
+The Keycloak Admin Console will be available at [`http://localhost:8080`](http://localhost:8080). To make use of the production image locally, you need to configure a TLS termination proxy (setup is beyond the scope of this document).
 
 ## Structure
 
