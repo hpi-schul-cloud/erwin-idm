@@ -86,6 +86,16 @@ docker stop erwin-idm
 
 The Keycloak Admin Console will be available at [`http://localhost:8080`](http://localhost:8080). To make use of the production image locally, you need to configure a TLS termination proxy (setup is beyond the scope of this document).
 
+## Bcrypt Setup
+
+> The Bcrypt provider can be found [here](./src/providers). During build, it will be copied into the image and is
+> available for late use.
+
+- By default, the default Keycloak hashing provider will be used for password hashing
+- To change the default behavior, login as admin under <http://localhost:8080>
+- Under `Authentication -> Password Policy` create a new `Hashing Algorithm` entry with value `bcrypt`
+- Optional: Under `Authentication -> Password Policy` create a new `Hashing Iterations` entry with your desired value, this will be used as cost for bcrypt and the default value is 10
+
 ## Structure
 
 - `./src`: Folder containing Keycloak customization (e.g. plug-ins, themes)
