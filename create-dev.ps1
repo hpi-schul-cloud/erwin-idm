@@ -1,5 +1,10 @@
 #!/bin/pwsh
 
+param(
+    [Parameter(Mandatory=$false)]
+    [Switch]$Run=$false
+)
+
 docker create `
     --name erwin-idm `
     -p 8080:8080 `
@@ -7,3 +12,7 @@ docker create `
     -e KEYCLOAK_ADMIN=admin `
     -e KEYCLOAK_ADMIN_PASSWORD=admin `
     schulcloud/erwin-idm/dev:latest
+
+if ($Run) {
+    docker start erwin-idm
+}
