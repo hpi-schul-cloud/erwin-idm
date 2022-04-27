@@ -2,25 +2,25 @@
   "name": "erwin-idm",
   "version": "1.0.0",
   "description": "ErWIn IDM is a customized [`Keycloak`](https://github.com/keycloak/keycloak) docker image for the [dBildungscloud Server](https://github.com/hpi-schul-cloud/schulcloud-server).",
-  "main": "index.ts",
+  "author": "Dataport AöR",
+  "license": "AGPL-3.0",
+  "homepage": "https://github.com/hpi-schul-cloud/erwin-idm#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hpi-schul-cloud/erwin-idm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hpi-schul-cloud/erwin-idm/issues"
+  },
+  "main": "./scripts/index.ts",
   "scripts": {
     "build": "tsc",
     "prestart": "npm run build",
     "start": "node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hpi-schul-cloud/erwin-idm.git"
-  },
-  "author": "",
-  "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/hpi-schul-cloud/erwin-idm/issues"
-  },
-  "homepage": "https://github.com/hpi-schul-cloud/erwin-idm#readme",
   "dependencies": {
-    "@keycloak/keycloak-admin-client": "17.0.0"
+    "@keycloak/keycloak-admin-client": "^17.0.0"
   },
   "devDependencies": {
     "typescript": "^4.6.3"
