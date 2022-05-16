@@ -3,7 +3,7 @@ FROM quay.io/keycloak/keycloak:17.0.0 AS base
 
 # ErWIn specific extensions (providers, themes, etc.)
 #COPY src/conf/ /opt/keycloak/conf/
-#COPY src/providers/ /opt/keycloak/providers/
+COPY src/providers/ /opt/keycloak/providers/
 #COPY src/themes/ /opt/keycloak/themes/
 
 ### Development image
