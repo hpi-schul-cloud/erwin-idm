@@ -1,5 +1,5 @@
 ### Keycloak base image with ErWIn-IDM extensions
-FROM quay.io/keycloak/keycloak:17.0.0 AS base
+FROM quay.io/keycloak/keycloak:18.0.2 AS base
 
 # ErWIn specific extensions (providers, themes, etc.)
 #COPY src/conf/ /opt/keycloak/conf/
@@ -12,6 +12,7 @@ COPY src/providers/ /opt/keycloak/providers/
 FROM base AS development-build
 
 # Keycloak settings for developers mode
+ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=dev-file
 ENV KC_CACHE=local
@@ -35,6 +36,7 @@ ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]
 FROM base AS production-build
 
 # Keycloak settings for production mode
+ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=postgres
 ENV KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn
