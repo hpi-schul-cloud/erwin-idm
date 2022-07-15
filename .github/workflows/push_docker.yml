@@ -16,7 +16,7 @@ jobs:
         run: |
           COMMIT=$(git rev-list -1 $GITHUB_REF_NAME)
           echo "tag_commit=$COMMIT" >> $GITHUB_ENV
-          BRANCHES=$(git branch --contains tag_commit)
+          BRANCHES=$(git branch --contains env.tag_commit)
           echo "tag_branch=$BRANCHES"
           echo "github_ref=$GITHUB_REF"
 
