@@ -14,9 +14,11 @@ jobs:
 
       - name: Determine if the tag was created on the default branch
         run: |
-          BRANCHES=$(git branch --contains tags/$GITHUB_REF_NAME)
+          COMMIT=$(git rev-list -1 $GITHUB_REF_NAME)
+          echo "tag_commit=$COMMIT"
+          BRANCHES=$(git branch --contains $COMMIT)
           echo "tag_branch=$BRANCHES"
-          echo "github_ref=$GITHUB_REF" >> $GITHUB_ENV
+          echo "github_ref=$GITHUB_REF"
 
       - name: Docker meta service name for DockerHub development image
         id: docker_meta_img_dev
