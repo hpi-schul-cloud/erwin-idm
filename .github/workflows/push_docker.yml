@@ -19,7 +19,6 @@ jobs:
           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
           echo "github_ref=$GITHUB_REF" >> $GITHUB_ENV
           echo "github_event_repository_default_branch=${{github.event.repository.default_branch}}" >> $GITHUB_ENV
-          echo "isdb={{is_default_branch}}" >> $GITHUB_ENV
           echo "isdb2=${{is_default_branch}}" >> $GITHUB_ENV
 
       - name: Determine event context
