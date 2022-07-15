@@ -17,7 +17,7 @@ jobs:
           DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
           echo "default_branch=$DEFAULT_BRANCH" >> $GITHUB_ENV
           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
-          echo "github_ref=github.ref" >> $GITHUB_ENV
+          echo "github_ref=$GITHUB_REF" >> $GITHUB_ENV
 
       - name: Docker meta service name for DockerHub development image
         id: docker_meta_img_dev
