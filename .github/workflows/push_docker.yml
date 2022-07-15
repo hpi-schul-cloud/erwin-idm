@@ -16,10 +16,9 @@ jobs:
         run: |
           echo "$GITHUB_REF_NAME"
           COMMIT=$(git rev-parse $GITHUB_REF_NAME~0)
-          echo "tag_commit=$COMMIT" >> $GITHUB_ENV
-          BRANCHES=$(git branch --contains $COMMIT)
-          echo "tag_branch=$BRANCHES"
-          echo "github_ref=$GITHUB_REF"
+          echo "$COMMIT"
+          BRANCH=$(git branch --contains $COMMIT)
+          echo "$BRANCH"
 
       - name: Docker meta service name for DockerHub development image
         id: docker_meta_img_dev
@@ -27,7 +26,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}/dev
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+            type=raw,value=latest,enable=${{ github.event.repository.default_branch == "<branch-name>") }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
@@ -37,7 +36,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+            type=raw,value=latest,enable=${{ github.event.repository.default_branch == "<branch-name>") }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
