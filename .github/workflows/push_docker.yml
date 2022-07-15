@@ -25,7 +25,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}/dev
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == is_default_branch }}
+            type=raw,value=latest,enable=${{ github.ref == env.github_ref }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
