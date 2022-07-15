@@ -14,7 +14,7 @@ jobs:
 
       - name: Determine if the tag was created on the default branch
         run: |
-          BRANCHES=$(git branch --contains tags/${github.ref_name})
+          BRANCHES=$(git branch --contains tags/$GITHUB_REF_NAME)
           echo "tag_branch=$BRANCHES"
           echo "github_ref=$GITHUB_REF" >> $GITHUB_ENV
 
