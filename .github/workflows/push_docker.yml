@@ -15,8 +15,8 @@ jobs:
       - name: Determine if the tag was created on the default branch
         run: |
           COMMIT=$(git rev-list -1 $GITHUB_REF_NAME)
-          echo "tag_commit=$COMMIT"
-          BRANCHES=$(git branch --contains $COMMIT)
+          echo "tag_commit=$COMMIT" >> $GITHUB_ENV
+          BRANCHES=$(git branch --contains tag_commit)
           echo "tag_branch=$BRANCHES"
           echo "github_ref=$GITHUB_REF"
 
