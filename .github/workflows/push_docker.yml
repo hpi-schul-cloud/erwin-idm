@@ -17,6 +17,7 @@ jobs:
           DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
           echo "default_branch=$DEFAULT_BRANCH" >> $GITHUB_ENV
           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
+          echo "github_ref=github.ref" >> $GITHUB_ENV
 
       - name: Docker meta service name for DockerHub development image
         id: docker_meta_img_dev
@@ -24,7 +25,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}/dev
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', env.default_branch_ref) }}
+            type=raw,value=latest,enable=${{ github.ref == is_default_branch }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
@@ -34,7 +35,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', env.default_branch) }}
+            type=raw,value=latest,enable=${{ github.ref == env.default_branch_ref }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
