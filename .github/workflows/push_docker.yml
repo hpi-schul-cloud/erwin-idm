@@ -19,7 +19,6 @@ jobs:
           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
           echo "github_ref=$GITHUB_REF" >> $GITHUB_ENV
           echo "github_event_repository_default_branch=${{github.event.repository.default_branch}}" >> $GITHUB_ENV
-          echo "isdb2=${{is_default_branch}}" >> $GITHUB_ENV
 
       - name: Determine event context
         env:
@@ -33,7 +32,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}/dev
           tags: |
-            type=raw,value=latest,enable=${{ github.event.repository.default_branch == env.default_branch }}
+            type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
@@ -43,7 +42,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=latest,enable=${{ github.event.repository.default_branch == env.default_branch }}
+            type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
