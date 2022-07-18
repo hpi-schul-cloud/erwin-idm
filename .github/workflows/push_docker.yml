@@ -15,7 +15,7 @@ jobs:
       - name: Determine if the tag was created on the default branch
         run: |
           echo "BRANCH=$(git branch --contains $GITHUB_SHA)"
-          echo "taglist=$(git describe -all --tags ${{ github.event.repository.default_branch}})"
+          echo "taglist=$(git describe --all --tags ${{ github.event.repository.default_branch}})"
           echo "refname=$GITHUB_REF"
 
       - name: Docker meta service name for DockerHub development image
