@@ -15,7 +15,7 @@ jobs:
       - name: Determine if the tag was created on the default branch
         run: |
           echo "BRANCH=$(git branch --contains $GITHUB_SHA)"
-          echo "taglist=$(git describe --all --tags ${{ github.event.repository.default_branch}})"
+          echo "taglist=$(git describe --all --tags 'refs/heads/EW-234-keycloak-upgrade-to-v18')"
           echo "refname=$GITHUB_REF"
 
       - name: Docker meta service name for DockerHub development image
@@ -24,7 +24,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}/dev
           tags: |
-            type=raw,value=latest,enable=${{ github.event.repository.default_branch == format('refs/heads/{0}', 'main') }}
+            type=raw,value=latest,enable=${{ github.event.repository.default_branch == format('{0}', 'main') }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
@@ -34,7 +34,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=latest,enable=${{ github.event.repository.default_branch == format('refs/heads/{0}', 'main') }}
+            type=raw,value=latest,enable=${{ github.event.repository.default_branch == 'main' }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
