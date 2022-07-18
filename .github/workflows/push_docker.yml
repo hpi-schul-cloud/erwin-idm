@@ -14,20 +14,13 @@ jobs:
 
       - name: Determine if the tag was created on the default branch
         run: |
+          echo "SHORT_SHA=$(git rev-parse --short $GITHUB_SHA)"
+          echo "BRANCH=$(git branch --contains $GITHUB_SHA)"
+          echo "default_branch=${{github.event.repository.default_branch}}"
+          echo "With Tag-Name:"
+          echo "nameList=$(git describe --tags default_branch)"
+          echo "tagname=$(git describe --tags $GITHUB_SHA)"
           echo "$GITHUB_REF_NAME"
-          COMMIT=$(git rev-parse $GITHUB_REF_NAME~0)
-          COMMIT2=$(git rev-parse $GITHUB_REF_NAME)
-          echo "github_sha=$GITHUB_SHA"
-          echo "$COMMIT"
-          echo "$COMMIT2"
-          echo "BRANCH=$(git branch --contains $COMMIT)"
-          echo "BRANCH2=$(git branch --contains $COMMIT2)"
-          echo "BRANCH3=$(git branch --contains $GITHUB_SHA)"
-          echo "$BRANCH"
-          echo "$BRANCH2"
-          echo "$BRANCH3"
-          echo "_branch=${GITHUB_REF#refs/heads/}"
-          echo "git_hash=$(git rev-parse --short "$GITHUB_SHA")"
 
       - name: Docker meta service name for DockerHub development image
         id: docker_meta_img_dev
