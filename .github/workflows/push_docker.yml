@@ -14,11 +14,8 @@ jobs:
 
       - name: Determine if the tag was created on the default branch
         run: |
-          echo "SHORT_SHA=$(git rev-parse --short $GITHUB_SHA)"
-          echo "BRANCH=$(git branch --contains '$GITHUB_SHA')"
-          echo "default_branch=${{github.event.repository.default_branch}}"
-          echo "With Tag-Name:"
-          echo "taglist=$(git describe --tags '${{github.event.repository.default_branch}}')"
+          echo "BRANCH=$(git branch --contains $GITHUB_SHA)"
+          echo "taglist=$(git describe --tags 'EW-234-keycloak-upgrade-to-v18')"
           echo "tagname=$(git describe --tags $GITHUB_SHA)"
           echo "refname=$GITHUB_REF_NAME"
 
