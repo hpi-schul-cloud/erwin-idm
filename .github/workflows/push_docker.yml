@@ -18,9 +18,9 @@ jobs:
           echo "BRANCH=$(git branch --contains $GITHUB_SHA)"
           echo "default_branch=${{github.event.repository.default_branch}}"
           echo "With Tag-Name:"
-          echo "nameList=$(git describe --tags default_branch)"
+          echo "taglist=$(git describe --tags ${{github.event.repository.default_branch}})"
           echo "tagname=$(git describe --tags $GITHUB_SHA)"
-          echo "$GITHUB_REF_NAME"
+          echo "refname=$GITHUB_REF_NAME"
 
       - name: Docker meta service name for DockerHub development image
         id: docker_meta_img_dev
