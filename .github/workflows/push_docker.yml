@@ -12,7 +12,7 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v3
 
-      - name: Docker meta service name for DockerHub development image
+      - name: Docker meta service name for GitHub development image
         id: docker_meta_img_dev
         uses: docker/metadata-action@v4
         with:
