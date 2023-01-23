@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Docker meta service name for DockerHub development image
+      - name: Docker meta service name for GitHub development image
         id: docker_meta_img_dev
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ghcr.io/${{ github.repository }}/dev
           tags: |
@@ -24,26 +24,32 @@ jobs:
 
       - name: Docker meta service name for DockerHub production image
         id: docker_meta_img_prod
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: schulcloud/erwin-idm
           tags: |
             type=raw,value=latest,enable=${{ github.event.repository.default_branch == 'main' }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
-      - name: Log into DockerHub registry
-        uses: docker/login-action@v1
+      - name: Log into GitHub registry
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Log into DockerHub registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Build and push ${{ github.repository }} development image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./Dockerfile
@@ -54,7 +60,7 @@ jobs:
           labels: ${{ steps.docker_meta_img_dev.outputs.labels }}
 
       - name: Build and push ${{ github.repository }} production image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           file: ./Dockerfile
