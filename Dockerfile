@@ -1,5 +1,5 @@
 ### Keycloak base image with ErWIn-IDM extensions
-FROM quay.io/keycloak/keycloak:23.0.6 AS base
+FROM quay.io/keycloak/keycloak:25.0.1 AS base
 
 # ErWIn specific extensions (providers, themes, etc.)
 #COPY src/conf/ /opt/keycloak/conf/
