@@ -1,10 +1,5 @@
 version: 2
 
-registries:
-  quay-io:
-    type: "docker-registry"
-    url: "https://quay.io/"
-
 updates:
   - package-ecosystem: "docker"
     directory: "/"
