@@ -1,0 +1,25 @@
+version: 2
+
+registries:
+  quay-io:
+    type: "docker-registry"
+    url: "https://quay.io/"
+
+updates:
+  - package-ecosystem: "docker"
+    directory: "/"
+    open-pull-requests-limit: 10
+    versioning-strategy: "auto"
+    registries: "*"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependencies"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    open-pull-requests-limit: 10
+    versioning-strategy: "auto"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependencies"
